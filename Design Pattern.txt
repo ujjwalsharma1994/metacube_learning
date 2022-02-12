@@ -1,0 +1,211 @@
+Factory Design Pattern:
+
+		public interface OS {
+		
+			showOSName();
+		}
+		
+		public class Windows implements OS {
+		
+			@Override
+			public void showOSName() {
+				
+				SYSO("I AM windows Operating System");
+			}
+		}
+		
+		public class Android implements OS {
+		
+			@Override
+			public void showOSName() {
+				
+				SYSO("I AM Android Operating System");
+			}
+		}
+		
+		public class Linux implements OS {
+		
+			@Override
+			public void showOSName() {
+				
+				SYSO("I AM Linux Operating System");
+			}
+		}
+		
+		Now we will have a main method where we will create the objects of these implementation class
+		
+		
+		public class FactoryMain {
+		
+			
+			public static void main( String []args ) {
+			
+					
+					// here we will write object one by one. or
+					
+					FactoryObjectCreator fc = new FactoryObjectCreator();
+					OS os = fc.getInstance("Android");
+					os.getInstance(); // shows output
+			
+			}
+		}
+		
+		However in order to hide the code from client as much as possible, we will introduce a sub class
+		which will provide us the object which the client is asking for.
+		
+		
+		public class FactoryObjectCreator {
+		
+			
+			public OS getInstance(String whichObject) {
+			
+				
+					if (whichObject.equalsIgnoreCase("Android")
+					
+						return new Android();
+						
+					else if (whichObject.equalsIgnoreCase("Linux")
+					
+						return new Linux();
+					else
+						return new Windows();
+			
+			}
+		}
+		
+		
+		
+Builder Design Pattern
+		
+			The builder pattern is a design pattern designed to provide a flexible solution to various object creation problems in object-oriented programming. The intent of the Builder design pattern is to separate the construction of a complex object from its representation.
+			
+			Example:
+
+				public class Main {
+								
+					public static void main (String [] args) {
+					
+						// now if we want to create an object for student, we will have to pass all the params in the constructor
+						
+						//in order to fix this issue, we will create another class which will make a loosly coupled object creation process
+						
+						StudentBuilder sb = new StudentBuilder().setName("Ujjwal");
+						Student s = sb.getStudentObject();
+						System.out.println(s);
+					}
+				}
+
+				class Student {
+				
+					
+					private String name;
+					private String section;
+					private int classNo;
+					private int rollNo;
+					private boolean isMonitor;
+				
+
+					public Student(String name, String section, int classNo, int rollNo, boolean isMonitor) {
+					
+						this.name = name;
+						this.section = section;
+						this.classNo = classNo;
+						this.rollNo = rollNo;
+						this.isMonitor = isMonitor;
+					}
+					
+					public String toString() {
+					    
+					    return "Student [ "+name+" "+rollNo+" "+section+" "+classNo+" "+" "+isMonitor+" ]";
+					}
+				}
+				
+				class StudentBuilder {
+				
+					private String name;
+					private String section;
+					private int classNo;
+					private int rollNo;
+					private boolean isMonitor;
+				
+
+					public StudentBuilder setName(String name) {
+						
+						this.name = name;
+						return this;
+					}
+					public StudentBuilder setSection(String section) {
+						
+						this.section = section;
+						return this;
+					}
+					public StudentBuilder setClassNo(int classNo) {
+						
+						this.classNo = classNo;
+						return this;
+					}
+					public StudentBuilder setRollNo(int rollNo) {
+						
+						this.rollNo = rollNo;
+						return this;
+					}
+					public StudentBuilder setIsMonitor(boolean isMonitor) {
+						
+						this.isMonitor = isMonitor;
+						return this;
+					}
+					
+					public Student getStudentObject() {
+					
+						return new Student(name, section, classNo, rollNo, isMonitor);
+					}
+				}
+				
+Singleton Design Pattern: We can create only one instance of a class throught the program.
+
+	Example	//Eager Loading
+		public class SingleObject {
+
+		   //create an object of SingleObject
+		   private static SingleObject instance = new SingleObject();
+
+		   //make the constructor private so that this class cannot be
+		   //instantiated
+		   private SingleObject(){}
+
+		   //Get the only object available
+		   public static SingleObject getInstance(){
+			  return instance;
+		   }
+
+		   public void showMessage(){
+			  System.out.println("Hello World!");
+		   }
+		}
+		
+		// Lazy Loading
+		public class SingleObject {
+
+		   //create an object of SingleObject
+		   private static SingleObject instance;
+
+		   //make the constructor private so that this class cannot be
+		   //instantiated
+		   private SingleObject(){
+		   
+		   
+		   }
+
+		   //Get the only object available
+		   public static SingleObject getInstance(){
+			  
+			  if (instance ==null)
+					instance = new SingleObject();
+					
+				return instance;
+		   }
+
+		   public void showMessage(){
+			  System.out.println("Hello World!");
+		   }
+		}

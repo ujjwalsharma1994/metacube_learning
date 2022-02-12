@@ -1,0 +1,107 @@
+The IoC container gets informations from the XML file and works accordingly. The main tasks performed by IoC container are:
+
+to instantiate the application class
+to configure the object
+to assemble the dependencies between the objects
+There are two types of IoC containers. They are:
+
+BeanFactory
+ApplicationContext
+
+dependency injection: we donot need to create the object, spring will take care of it.
+	Dependency Injection is one of the design patterns which allows us to achieve Inversion Of Control.
+	When using dependency injection, we’ll not create objects on our own and rather inject them.
+	
+	IoC container is responsible for instantiating, configuring and managing the lifecycle of Spring beans.
+	
+	The Spring ApplicationContext interface represents its IoC container and we have several implementation classes available. Some of these include ClassPathXmlApplicationContext, FileSystemXmlApplicationContext, and WebApplicationContext.
+	Spring, by default, wires the beans by their type. If there are more than one beans of the same type, we can use @Qualifier annotation to reference a bean by its name:
+	
+	inside JVM we have a special container called as spring container. it hold different objects called as spring bean. 
+	When will they get created?
+		there are 2 different scopes through which we can create a bean
+			- singleton: creates only one object inside spring container irrespective of how many time we need the object.
+			- prototype: creates x number of object inside spring container whenever we try to inject the bean.
+			- request (used in web applications)
+			- session (used in web applications)
+			
+		The container gets created when we use SpringApplication.run(Application_Name.class,args);
+		and later it will create all the objects that are candidate for spring application.
+		
+		Only those classes will become a bean, which a developer wants to.
+		By using annotation @component on the POJO class, we will mark that class a candidate for spring bean.
+		
+		if we want the bean from a spring container then we can use ConfigurableApplicationContext clas help in order to extract the bean.
+		
+		by doing so spring will be injecting the bean into a module that we want.
+		
+
+Autowired:
+
+	if we aggregate other class object into the other class, and if both the classes are included in spring container but still by doing aggregation one class object will not know other class object and will give null pointer exception if we try to dereference the aggregated object.
+	
+	by writing @autowired on the aggregated class we will tell the main class that this object has been added in the spring container.
+	
+	
+	Spring supports three types of dependency injection:
+		Constructor-Based Injection: In a constructor-based injection, Spring will use the matching constructor to resolve and inject the dependency. ...
+		
+		Setter Injection: ...
+		
+		Property-Based Injection:
+		
+	As per Spring documentation:
+
+		We should use constructor injection for mandatory dependencies
+		Setter-based injections should be used for dependencies that are optional in nature
+		Spring uses reflection for injecting the field-injected dependencies. So, field-based injection is a costlier approach and we should avoid using it
+	
+	
+	@Component is used to mark a pojo class as a candidate for spring bean. usually we write all the pojo classes inside bean.xml file.
+	 It is a class-level annotation. It is used to mark a Java class as a bean. A Java class annotated with @Component is found during the classpath. The Spring Framework pick it up and configure it in the application context as a Spring Bean.
+	
+	@ComponentScan
+	With Spring, we use the @ComponentScan annotation along with the @Configuration annotation to specify the packages that we want to be scanned to look for spring bean which are defined somewhere else. Once we define the path which needs to be scanned, then spring container will see whether the bean is created or not.
+	
+	aasan basha mai, agar hum ek class ko annotate kar dete component scan se toh spring container uss package ke har ek class ko scan karega aur unko spring bean banayega
+	
+	@ComponentScan without arguments tells Spring to scan the current package and all of its sub-packages.
+	
+	
+	@Configuration
+	It is a class-level annotation. The class annotated with @Configuration is used by Spring Containers as a source of bean definitions.
+
+	@Bean
+	It is a method-level annotation. It is an alternative of XML <bean> tag and @Component annotation. It tells the method to produce a bean to be managed by Spring Container. It has to be used with @Configuration annotation.
+	
+		@Bean
+		public UserDefinedClass getBean() {
+			
+			UserDefinedClass obj = new UserDefinedClass();
+			return obj;
+			
+		}
+		
+	
+	
+	Stereotype
+	
+	Spring Framework provides us with some special annotations. These annotations are used to create Spring beans automatically in the application context. @Component annotation is the main Stereotype Annotation. There are some Stereotype meta-annotations which is derived from @Component those are
+
+	@Service
+	@Repository
+	@Controller
+	1: @Service: We specify a class with @Service to indicate that they’re holding the business logic. Besides being used in the service layer, there isn’t any other special use for this annotation. The utility classes can be marked as Service classes.
+
+	2: @Repository: We specify a class with @Repository to indicate that they’re dealing with CRUD operations, usually, it’s used with DAO (Data Access Object) or Repository implementations that deal with database tables.
+
+	3: @Controller: We specify a class with @Controller to indicate that they’re front controllers and responsible to handle user requests and return the appropriate response. It is mostly used with REST Web Services.
+
+
+
+	@EnableAutoConfiguration annotation tells Spring Boot to "guess" how you will want to configure Spring, based on the jar dependencies that you have added. For example, If HSQLDB is on your classpath, and you have not manually configured any database connection beans, then Spring will auto-configure an in-memory database.
+
+	@ComponentScan tells Spring to look for other components, configurations, and services in the specified package. Spring is able to auto scan, detect and register your beans or components from pre-defined project package. If no package is specified current class package is taken as the root package.
+
+
+

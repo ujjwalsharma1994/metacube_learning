@@ -1,0 +1,313 @@
+why java 8
+
+functional programming:
+	
+	treats function as first class citizen by the help of functional interface without disturbing backward compatibility.
+	it treats every function as a value/variables.
+	makes the code concise and simple.
+	less error prone.
+	
+
+Lambda: It is a building block of functional programming.
+
+	It is also called a function without a name. which is an anonymous function.
+
+	Introduced in Java-8
+
+	
+	How to implement Lambda:
+	
+	to implement lambda, we must understand function properties:
+
+	functions has: 1. name, 2. definition, 3. parameters list, 4. return type
+	
+	where as lambda has: 
+	1. a list of parameters 
+	2. An arrow -> which separates the list of parameters from the body of lambda fn. 
+	3. body of lambda expression.
+	
+	
+	now how to play with these properties via java-8.
+
+	we can only convert function to lamda only when the interface is a functional interface.
+
+	
+
+Functional Interface: it is behind every lambda expression. Interface having single abstract method is called as functional interface. Functional interface is required to write lambda experssion without any ambiguity.
+
+How lambda works?
+
+
+	if we write anonymous inner class and provide 2 or more than 2 implementation for the interface, then 
+	compiler will generate 2 or more classes at the back of project which makes the application more bulky
+	if we generate the jar and war file for the same.
+	
+	Lambda uses type inference and dynamic typed language like feature 
+			using invoke dynamic functionality. Lambda also optimise the memory.
+
+
+Benifit of Lambda:
+
+		Pass behavior as parameters like we pass data as parameters in methods.
+		
+		It enables declarative programming.
+		
+		
+	Functional programming is a subset of declarative programming.
+	
+	example of declarative programming:
+	
+			public static void main(String[] args) {
+				System.out.println("Hello World");
+				
+				int x1 = IntStream.rangeClosed(0,99).filter(e->e%2 == 0).reduce((x,y)-> x+y).getAsInt();
+				System.out.println(x1);
+			}
+		
+		
+	example of imparative programming:
+	
+			public static void main(String[] args) {
+			
+				int sum = 0;
+				
+				System.out.println("Hello World");
+				
+				for (int i = 0; i < 100; i++) {
+					if (i%2 == 0)
+						sum += i;
+				}
+
+				System.out.println(sum);
+			}
+			
+			
+		
+		in declarative programming the programmar has very little scope for mutating tge value. but under the hood mutation is 
+			
+			possible but jvm is smart enough to take care of that. therefore the given code is thread safe.
+		
+		declarative is much consice and readbale than imparative style
+		
+		in imparative programming there is a high chance of data inconsistency thus leading to thread unsafe in multi
+		
+			core processing environments.
+			
+		
+			
+		Typical scenarios in writing lambda expression:
+		
+			1. No param no return type
+			
+			2. With parameter.
+			
+			3. With return type.
+			
+			4. multi line function.
+			
+			
+		1. No param no return type:
+		
+			for a imparative programming:
+			
+				we will write as
+				
+				public void showDate() {
+				
+					System.out.println("Hello");
+				
+				}
+				
+			now to convert this into lambda expression:
+			
+				remove name of fn.
+				remove return type.
+				remove access modifier.
+				add arrow head between paranthesis and method body.
+				remove curly braces (in case of only 1 statement)
+				
+				() -> System.out.println("Hello");
+				
+		2. with parameters but no return type.
+		
+			for a imparative programming:
+			
+				we will write as
+				
+				public void sumData(int a, int b) {
+				
+					System.out.println(a+b);
+				
+				}
+				
+			now to convert this into lambda expression:
+			
+			1. remove name of function
+			2. remove return type.
+			3. remove access modifier.
+			4. add arrow between paranthesis and method body.
+			5. remove curly braces.
+			6. we can remove the type of arguments as JVM can understand the type inference.
+			
+			
+		3. With return type and arguments
+		
+			for a imparative programming:
+			
+				we will write as
+				
+				public void stringLength(String s) {
+				
+					return s.length();
+				
+				}
+				
+			now to convert this into lambda expression:
+			
+			1. remove name of function
+			2. remove return type.
+			3. remove access modifier.
+			4. add arrow between paranthesis and method body.
+			5. remove curly braces.
+			6. we can remove the type of arguments as JVM can understand the type inference.
+			7. if we are having only 1 statement in the code then we can remove the return statement. else we need to keep the return statement.
+			
+			
+		4. Multi line function
+		
+		for a imparative programming:
+			
+				we will write as
+				
+				public int length(String s) {
+				
+					System.out.println("Number of characters in string is: "+s.length());
+					return s.length();
+				}
+				
+			now to convert this into lambda expression:
+			
+			1. remove name of function
+			2. remove return type.
+			3. remove access modifier.
+			4. add arrow between paranthesis and method body.
+			5. we can remove the type of arguments as JVM can understand the type inference.
+		
+			
+			
+	Predefined Functional Interfaces
+		
+		Most used functional interfaces:
+		
+			1. Predicate: Used to test a condition. Contains method - boolean test(T t);
+			2. Consumer: To consume something and return nothing. Contains method - void accept(T t);
+			3. Function: To accept something and return something. It is used for transformation. Contains - R apply(T t);
+			4. Supplier: To accept nothing and return something Contains method - T get();
+			5. Unary: accepted data and returned data both are same. It extends functional interface but maintaining same return type as passed parameter.
+						- T apply(T t);
+						
+			6. BiFunction: takes two different arguments and returns a result which can be different than given parameter. R apply(T t, U u);
+			7. Binary: It takes two param of same type and returns result of same type. it extends bifunction. it contains - T apply(T t1, T t2);
+		
+		
+	In Java java.util.function package contains already defined generic interfaces that can be used to invoke lambdas
+			
+			
+		How to use generic syntax with functional interfaces.
+		
+		public interface GenericInterface<T, R> {
+		
+			R findSomething(T str);
+		}
+		
+		
+	1. Predicate: It has a method test(T t): It takes an object of type T in order to do some operation and return a boolean.
+	
+		
+		
+		
+	Method references:
+		as we know we lambda was introduced in order to take advantages of functional programming.
+		
+		Method reference are special type of lambda expressions that are used to create simple lambda expression by referring existing methods.
+		Each time when we are using lambda expression to refer a method, we can replace that expression with method reference.
+		
+		So method references are basically referring a method of an 
+			Static Method Reference. Class :: staticMethod
+			Instance Method Reference of a particular object. object :: instanceMethod
+			Instance Method Reference of an arbitrary object of a particular type. Class :: instanceMethod
+			Constructor Reference. Class :: new
+			
+		Method reference is used to refer method of functional interface. It is compact and easy form of lambda expression. 
+		Each time when you are using lambda expression to just referring a method, you can replace your lambda expression with method reference.
+		
+		Passing methods as a behavor in a method.
+		
+	
+	
+	Optionals
+	
+		Dangers of Null: if a value or object is a null then any opeartion on that null reference will cause null pointer exception.
+		
+			Null pointer exception can be handled by adding checks to prevent null dereferences. This will produce a boilerplate code to make sure we will not get null pointer exception. This will also reduce code readability.
+			
+			Other way to deal with null pointer exception is using optional.
+			
+			Optional is a container which wraps the value or object which may or may not contains null values. It uses 16 bytes of memory and creates new object everytime we declare. Optional are immutable. 
+			
+			So creating optional in each line of code is memory consuming.
+			
+			How to make an object optional
+			
+				String str = "Ujjwal";
+				
+				Optional<String> strOptional = Optional.of(str);
+				
+				// to insert empty
+				Optional<Integer> intOptional = Optional.empty();
+				
+				// to make nullable
+				Optional<String> nullableOptional = Optional.ofNullable(str);
+				
+			How to get the original object from optional container
+			
+				Integer a = 10;
+				
+				Optional<Integer> intOptional = Optional.of(a);
+				
+				a = intOptional.get(); // to get the original state
+
+
+				We should not prefer this method because this may trigger no such element exception.
+				To use this method we should first use isPresent()
+				
+				Integer a1 = intOptional.isPresent() ? intOptional.get() : 0;
+				
+				
+				//orElse, orElseGet
+				
+				Integer int = intOptional.orElse(0); // if intOptnal is null then give default value
+				
+				Integer int = intOptional.orElseGet(() -> 0);
+				
+				// orElseThrow(() -> new Exception()); orElseThrow() to throw exception if any value not present.
+				
+				
+				// map()
+				
+				
+				optional<String> str = Optional.of("ABC");
+				
+				str = Optional.map((bcb) -> "Replaced");
+				System.out.println(str.get());
+			
+				// filter
+				
+				optional<String> str = Optional.of("ABC");
+				
+				str = Optional.filter((bcn) -> bcn.equalsIgnoreCase("ABC"));
+				System.out.println(str.get());
+		 
+		
+		
+		

@@ -1,0 +1,98 @@
+Docker:
+	a platform for running, building and shipping applications in a consistant manner. So if an application can work on developer's machine then with help of docker it will function the same way with other machine.
+	
+	Reason why our application might not work on other's machine
+	
+		1. 1 or more files are missing
+		2. Software version mismatch
+		3. Different config settings
+		
+	With help of docker we can easily package our application what everything it needs and hence run it on any machine. By running the docker it will automatically download the dependency and run them inside an isolated environment called container.
+	
+	With the help of container many applications can use different versions of the dependency. All the applications will run side by side on the same machine without disturbing each other.
+	
+	Other advantage of docker is that we can remove the application and their dependencies in one go.
+	
+	
+	VM vs Docker
+	
+		Container is an isolated environment where the application is running.
+		VM is an abstraction of a machine (physical hardware). so we can run several different virtual machines on the real machine. By using the tool called hypervisor we can install other OS on a different OS.
+		
+		Hypervisor is a software we used to create different vm's and manage them.
+		eg virtual box and VMvare.
+		
+		VM requires a new OS. which means it will be cost effective if we try to install Windows OS. 
+		VM are slow to start.
+		VM requires a lot of resources.
+		
+		Whereas containers are lightweight 
+		Container uses OS of the host.
+		Container starts very quickly
+		Container needs less hardware resource. 
+		
+		
+	Docker Architecture:
+		
+			It works on client server architecture.
+			It has a client component which communicates to server component via REST apis. Server is also called as docker engine. It works in the background and takes care for building and running the docker container.
+			
+			The container in a docker is basically a process. Container donot contain another OS unlike VM. It shares the kernal (core of os which manages all application and hardware resources) of host with the process. Therefore on linux machine we can only run linux containers but on windows we can run both windows and linux containers. Docker on MAC uses lightweight linux VM to run linux container.
+			
+	How docker is used in Application:
+	
+		We take the application and dockerize it by adding a docker file which will include instructions which will be further required by docker in order to create the image of the application. Image will have all the resources that would be requried to run an application.
+		
+		Image contains
+			Envvironment variables
+			third party libraies
+			application files
+			a runtime environment (eg node)
+			
+			
+		So we create a docker file attached to our application and pass it to Docker application, for packaging our application into an image. Once we have an image we tell the docker to start a container using the image. So our application will be loaded into the container.
+		
+		Once our application image is ready we can also deploy it to docker hub platform and later it can be used in any of the machine
+		
+		In order to run a program normally we reqire 4 steps
+		
+		1. start with an OS
+		2. Install Node or JVM
+		3. Copy all files.
+		4. Run node or java program
+		
+		How to write Dockerfile
+		
+			Create a file in your project with name"Dockerfile" with no extension
+			Now we will write instructions to package our application into an image
+			
+			Dockerfile
+				
+				FROM node:alpine
+				COPY . /app
+				WORKDIR /app
+				CMD node app.js
+			
+			docker build -t hello-docker . // t -> tag, this will package our application
+			
+			docker images or docker image ls // to show all the images inside the docker
+			
+			docker run __image-name__ | docker run hello-docker
+			
+			to pull an image from docker hub
+			
+				docker pull user/image_name
+				
+			docker ps -a //to show all the containers including stopped containers
+				
+			docker rmi <your-image-id> // to remove an image
+			
+			docker rmi <your-image-id> <your-image-id> ... // remove the list of images
+			
+			docker rmi $(docker images -q) // remove all the images
+			
+			docker stop container_id
+			
+			Stop all running containers: docker stop $(docker ps -a -q)
+			
+			Delete all stopped containers: docker rm $(docker ps -a -q)

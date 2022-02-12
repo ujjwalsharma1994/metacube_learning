@@ -1,0 +1,314 @@
+SOLID Principles
+
+
+	1. Single Responsibility Principle: A class should only have one reason to change. Which implies that class has to perform only one responsibility/job
+	
+	So class should take care of only 1 responsibility/job.
+	
+	example:
+	
+		class Books {
+	
+			public String authorName;
+			public String bookName;
+			public String text;
+
+			// getters and setters
+			
+			//duty related to books property
+			public boolean isContainAuthor(String authorName) {
+				return this.authorName.contains(authorName);
+			}
+			//duty related to books property
+			public boolean isContainBook(String bookName) {
+				return this.bookName.contains(bookName);
+			}
+			
+			// a new responsibilty which may involve other classes and utilities to write into the logic 
+			public void printToConsole() {
+				
+			}
+		}
+		
+		instead we should have a separate class for the above responsibility which is responsible for perinting other entities.
+	
+	2. Open Closed Principle:
+		
+		It means open for extension and closed for modification.
+		Our code should be readily extensible for feature but not for any modification.
+		
+		
+		eg.
+		
+		take an example of calculator
+		
+			String operation = "*";
+		int a = 10;
+		int b = 20;
+		int result = 0;
+		switch (operation) {
+			case "+":
+				result = a + b;
+				break;
+		
+			case "-":
+				result = a - b;
+				break;
+			
+			case "*":
+				result = a * b;
+				break;
+			
+			case "/":
+				result = a / b;
+				break;
+
+		}
+		
+		now in this case if i want to add another operation then i will be changing the code. which is against the principle.
+		
+		Instead what we can do is, we can create an interface with a method calculate(); that will be implemented by addition class,
+		subtraction class, multiplication class and division class. Now if we want to add any new feature we will just create a new class
+		without disturbing the existing code.
+		
+		This the code should be open for extension and closed for modification.
+	
+	
+	Liskov Substitution Principle:
+	
+		Derived class can be substitutable for their base class.
+		
+		if S is a sub class of class T, then there should not be any issue when we replace the object of base class by child class object.
+	
+	
+	Interface Segrigation Principle
+	
+		Instead of writing all the methods in an interface, one should have separate interfaces which will serve their own purpose.
+		This will also follow the loosly couple concept and the code will be more understandable.
+		
+		example:
+		
+			let say we have an interface called as shape.
+			
+				now the shape interface contains 2 methods 
+					calculateArea and calculateVolume
+					
+				here the issue is that all 3d shapes can easily work around these 2 methods except 2d and 1d shapes.
+				in order to fix this issue we can segrigate the concern of volume. so that all 2d and 3d shapes only calculate area
+				and only 3d shapes implement the calculateVolume method.
+	
+	Dependency Inversion Principle:
+	
+		It says that the high level module should not be dependent on the low level modules. Both the module should depend on abstraction.
+		Abstraction should not worry about the detail but modules should be dependent on modules.
+		
+		
+		
+		example:
+
+			class Manager {
+
+				public Manager() {
+
+				}
+				
+				public void addDeveloper(Developer employee) {
+				
+					System.out.print("Employee as a "+employee.getJobName()+" is added");
+					System.out.println(" having "+employee.getEmployeeLevel()+" role.");
+				}
+				
+				public void addTester(Developer employee) {
+					
+					System.out.print("Employee as a "+employee.getJobName()+" is added");
+					System.out.println(" having "+employee.getEmployeeLevel()+" role.");
+				}
+			}
+
+			class Developer {
+
+				private String designation;
+
+				public Developer(String designation) {
+					
+					this.designation = designation;
+				}
+				public String getJobName() {
+					
+					return "Developer";
+				}
+
+				public String getEmployeeLevel() {
+					
+					if (designation != null)
+						return this.designation+"Software Engineer";
+					else
+						return "Software Engineer";
+				}
+			}
+
+			class Tester {
+
+				private String designation;
+
+				public Tester(String designation) {
+					
+					this.designation = designation;
+				}
+				
+				public String getJobName() {
+					
+					return "Tester";
+				}
+				
+				public String getEmployeeLevel() {
+					
+					if (designation != null)
+						return this.designation+"Software Tester Engineer";
+					else
+						return "Software Tester Engineer";
+				}
+			}
+
+			public class ManagerCheck {
+				
+				public static void main(String[] args) {
+					
+					Manager manager = new Manager();
+					manager.addDeveloper(new Developer(""));
+					manager.addTester(new Tester("Senior "));
+					
+				}
+			}
+	
+		Issue:
+		
+			First, you have exposed everything about the lower layer to the upper layer, thus abstraction is not mentioned. 
+			That means Manager must already know about the type of the workers that he can supervise.
+			Now if another type of worker comes under the manager lets say, QA (quality assurance),
+			then the whole class needs to be rejigged. This is where dependency inversion principle pitch in.
+			
+		Solution
+		
+		class Manager {
+
+			public Manager() {
+
+			}
+			
+			public void addEmployee(Employee employee) {
+				
+				System.out.print("Employee as a "+employee.getJobName()+" is added");
+				System.out.println(" having "+employee.getEmployeeLevel()+" role.");
+			}
+		}
+
+		interface Employee {
+			
+			public String getJobName();
+			public String getEmployeeLevel();
+		}
+
+		class Developer implements Employee {
+
+			private String designation;
+
+			public Developer(String designation) {
+				
+				this.designation = designation;
+			}
+			
+			@Override
+			public String getJobName() {
+				
+				return "Developer";
+			}
+
+			@Override
+			public String getEmployeeLevel() {
+				
+				if (designation != null)
+					return this.designation+"Software Engineer";
+				else
+					return "Software Engineer";
+			}
+		}
+
+		class Tester implements Employee {
+
+			private String designation;
+
+			public Tester(String designation) {
+				
+				this.designation = designation;
+			}
+			
+			@Override
+			public String getJobName() {
+				
+				return "Tester";
+			}
+
+			@Override
+			public String getEmployeeLevel() {
+				
+				if (designation != null)
+					return this.designation+"Software Tester Engineer";
+				else
+					return "Software Tester Engineer";
+			}
+		}
+
+		public class ManagerCheck {
+			
+			public static void main(String[] args) {
+				
+				Manager manager = new Manager();
+				manager.addEmployee(new Developer(""));
+				manager.addEmployee(new Tester("Senior "));
+				
+			}
+		}
+		
+		Now if any other kind of the employee is added it can be simply be added to Manager without making 
+		the manager explicitly aware of it. Now to add another class of employee we can simply call.
+		The creation of the abstraction between different employees and Manager has resulted in very 
+		good looking design code which is easily maintainable and extendable.
+		
+		In this code, the manager doesn’t have an idea beforehand about all the type of workers that may come under him/her making the
+		code truly decoupled. There are many design patterns where this is a core idea and other things are built upon it.
+	
+	
+	Benifits of solid:
+	
+		Loosly coupled.
+		
+		Code is maintained.
+		
+		Dependency Management.
+		
+		
+		ACID Properties: The ACID properties, in totality, provide a mechanism to ensure correctness and consistency of a database in a way such that each transaction is a group of operations that acts a single unit, produces consistent results,
+		
+		Atomicity: The tranasction that is performed on db should either be executed or gets stopped in case the tranasction fails. Atomicity is also known as the ‘All or nothing rule’.
+		It involves the following two operations. 
+			—Abort: If a transaction aborts, changes made to database are not visible. 
+			—Commit: If a transaction commits, changes made are visible. 
+		
+		Consistency:
+		
+			This means that integrity constraints must be maintained so that the database is consistent before and after the transaction. It refers to the correctness of a database. Referring to the example above, 
+			The total amount before and after the transaction must be maintained. 
+			Total before T occurs = 500 + 200 = 700. 
+			Total after T occurs = 400 + 300 = 700. 
+			Therefore, database is consistent. Inconsistency occurs in case T1 completes but T2 fails. As a result T is incomplete. 
+
+		Isolation:
+		
+			This property ensures that multiple transactions can occur concurrently without leading to the inconsistency of database state. Transactions occur independently without interference. Changes occurring in a particular transaction will not be visible to any other transaction until that particular change in that transaction is written to memory or has been committed. This property ensures that the execution of transactions concurrently will result in a state that is equivalent to a state achieved these were executed serially in some order. 
+
+		
+		Durability
+		
+			This property ensures that once the transaction has completed execution, the updates and modifications to the database are stored in and written to disk and they persist even if a system failure occurs. These updates now become permanent and are stored in non-volatile memory. The effects of the transaction, thus, are never lost. 
+
