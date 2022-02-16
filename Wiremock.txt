@@ -1,0 +1,54 @@
+Wiremock is a simulator for HTTP-based APIs.
+	
+	It constructs a HTTP server that we could connect to as we would to an actual web service.
+	It enables to stay productive when in case API is
+	
+		costly to access
+		not completed yet
+	
+	It supports testing of 
+		
+		edge cases like api timeout and
+		failure cases like network failure.
+		
+	Features of WireMock:
+		
+		STUBBING: for any request we provide wiremock will provide an apt response for any use case.
+		
+		VERIFICATION: WireMock keeps the record of whether an API with a certian request and response was accessed or not. It will maintain a data where we can check which apis were accessed.
+		
+		Injection of fault and delays.
+		
+	The main difference between the mockito and wiremock is that wiremock mocks the server calls. Mockito is there to mock the classes for which we are performing unit tests.
+	
+	Difference between Mockito and Wiremock
+	
+		Acts like a Web server just like real API 		No web server
+		
+		Acts like a Real HTTP							Not acts like any HTTP call.
+		
+		We can run wiremock as server and get response  It is a part of application code. 
+		from there
+		
+		It can simuate network faults					It cannot.
+		
+		
+
+	Lets imagine your app needs to connect to an external Rest Service API and you need to start creating Unit/Integration Tests as part of your CI/CD development process. For this case, what do you think would be the best approach: 
+	Should tests calls the external Rest Service or to a Mock Server instead? In my opinion, the decision relies not only in the technical side but pricing. Having said that, WireMock is a very good option when a Mock Server is needed.
+	
+	for API automation we use wiremock.
+	It provides simulation for HTTP based APIs where as Mockito provides the mock implementation of the method/objects.
+	
+	If we are using Mockito to mock HTTP based method, it means that we are trying to return the object or response without testing the code to invoke Rest service.
+	
+	If we use wiremock we will be able to test close to reality as it will test the invocation of REST calls as well as desreialize the response.
+	
+	
+	Common Scenario:
+	
+		Consider an application which will interact with a 3rd party service. Now if we generally use mockito to perform the unit testing on our application, it will not be able to function for 3rd party Apis. Since mockitp expects a class object but 3rd party apis will produce/ give response in a json or xml data.
+		
+		WireMock will help us in mocking the 3rd party APIs as well.
+		
+	
