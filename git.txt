@@ -170,3 +170,61 @@ GIT -> Version Control System maintains the changes in the code overtime which i
 			Feature Branch Workflow: In this we will have dedicated branches for each feature. This will not disturb the master branch unlike we saw in centralized workflow.
 			
 			Gitflow:
+			
+			
+================================================================================================================================================================================
+
+Chirag Git cheetsheet
+
+Git commands and flow
+
+git status (for checking the status)
+Step 1: Save changes at local 
+git stash
+
+Step 2: get updated code on local from master branch
+git pull --rebase upstream master
+
+Step 3: Update our own branch by pushing updated local code on that
+git push origin <your branch name>
+
+Step 4: add changes you had made to the code at local now and sort out the conflict if any
+git stash apply 
+
+Step 5: add all untracked file 
+git add .
+
+Step 6: Commit your code 
+git commit -m “commit message”
+
+
+Step 7: Push your code to your branch 
+git push origin <Your branch name>
+
+Raise pull request after that and send that url to dev group
+
+Important commands
+
+Creating and switching in new branch
+git checkout -b ＜new-branch＞
+
+Deleting branch
+git branch -d <branch> 
+
+In order to amend commit:
+git commit --amend -m "New commit message."
+
+For excluding files while adding in git
+git add --all -- ':!path/to/file1' ':!path/to/file2' ':!path/to/folder1/*'
+
+To clear all stash
+git stash clear
+
+In order to revert changes in particular file
+ git checkout -- <file name>
+
+For cherry-pick commit to your branch 
+git cherry-pick <commit_id>
+
+For Squash commit
+git rebase -i HEAD~5
