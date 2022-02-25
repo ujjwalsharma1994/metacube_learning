@@ -228,3 +228,20 @@ git cherry-pick <commit_id>
 
 For Squash commit
 git rebase -i HEAD~5
+
+
+GIT Stash
+
+	The git stash command takes your uncommitted changes (both staged and unstaged), saves them away for later use, and then reverts them from your working copy.
+	
+	Commands
+	
+		git stash save 'message' - >to store your localchanges into a stash
+		
+		git stash pop -> to remove the first entry from stash and append the changes to the file.
+		
+		git stash apply _stash_id -> to apply the changes to file and keep the entry in stash.
+		
+		git stash clear -> clear all the entries in stash
+		
+		git stash list
