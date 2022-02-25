@@ -1,11 +1,43 @@
 Docker:
-	a platform for running, building and shipping applications in a consistant manner. So if an application can work on developer's machine then with help of docker it will function the same way with other machine.
+	An ecosystem for running, building and shipping applications in a consistant manner. 
+
+	So if an application can work on developer's machine then with help of docker it will function the same way with other machine.
+	
+	Before Developing an application a developer requires
+	
+		certain libraies
+		certain dependencies
+		a framework for developing the application
+		and OS Level feature
+		
+	Once the application is ready, we will ship that application to testing team.
+	There is a high chance that the testing team might face issue while testing.
+	
+	In order to overcome such issues we have
+		
+		1. Virtual MACHINES: It will be installed on our regular OS and further installs a new OS which will further can be shipped to other team. This image of os will then be installed by other team member.
+		
+		Problems in Hypervisor:
+			
+			Imagine a scenario where a server is hosting multiple application, now for each application we will be needing to install OS image for each app which will make it bulky which inturn waste memory, cpu usage.
+			
+			Another isssue is what if our application is running on Windows OS then in that case we need to have license for the same.
+		
+		2. Container: Hardware > OS > Docker and on docker we will create containers by this architecture we can install multiple application. ONCE we build the entire application we will pack that application and container into an image.
+		
+		We can treat containers as Objects and Image as a class.
+		
+		We can create our own container and later share those images on dockerhub
+		
+			In VM the hirarchy is : Hardware > OS > Hypervisor > Virtual OS.
+			
+		
 	
 	Reason why our application might not work on other's machine
 	
 		1. 1 or more files are missing
 		2. Software version mismatch
-		3. Different config settings
+		3. Different configuration settings
 		
 	With help of docker we can easily package our application what everything it needs and hence run it on any machine. By running the docker it will automatically download the dependency and run them inside an isolated environment called container.
 	
@@ -42,6 +74,8 @@ Docker:
 	How docker is used in Application:
 	
 		We take the application and dockerize it by adding a docker file which will include instructions which will be further required by docker in order to create the image of the application. Image will have all the resources that would be requried to run an application.
+		
+		A Docker image is a read-only template that contains a set of instructions for creating a container that can run on the Docker platform.
 		
 		Image contains
 			Envvironment variables
