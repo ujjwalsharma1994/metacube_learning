@@ -1,0 +1,29 @@
+Jenkins
+	A CI/CD Tool
+	Free and Open source
+	Written in JAVA
+	
+	1.)
+	In continuous integration the dev team integrate their code to the central repository and later it is built.
+	
+	An automated build and automated tests help in verification of each integration. Generally, CI involves the integration of changes from various developers into the mainline as soon as possible. As a result, developers do not divert away from the main code.
+	
+	The foremost advantage of CI is the ability for identifying errors quickly and easily. Since CI constantly tracks the changes in the code, developers could find out the change responsible for a concerned problem and solve it quickly.
+	
+	2.)
+	In simple words, continuous delivery helps in adding changes to production in a safe, faster and sustainable manner. The notable benefits of continuous delivery include faster time to market, lower costs and lower risk releases along with higher quality. 
+	
+	how to change home directory in jenkins:
+	
+		1. Copy all the files and folder from current jenkins directory.
+		
+		2. Create a folder where you want to make your default directory
+		
+		3. paste all the files in the new directory.
+		
+		4. update the env variable of JENKINS_HOME with the new folder directory path
+		
+		5. restart jenkins
+		
+		or goto program files in C drive and look for jenkins folder and then look for jenkins.xml files
+		and then update the new directory location at JENKINS_HOME key.
