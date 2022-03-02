@@ -247,5 +247,9 @@ The git stash command takes your uncommitted changes (both staged and unstaged),
 	git stash clear -> removes all the stash data.
 	
 	
+
+GIT merge vs Git Rebase
 	
+	git merge _which branch_to_merge_with_ -> this will merge all the commits that are there in other branch
 	
+	git merge always create a new merge commit in the perticular branch. whereas git rebase moves the entire branch to begin with the other branch. Also entire commit history is re-written.
