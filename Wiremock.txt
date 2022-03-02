@@ -1,5 +1,118 @@
 Wiremock is a simulator for HTTP-based APIs.
+
+Most of the enterprises embrace Microservices architecture.
+REST Api plays a vital role in microservice architecture.
+Unit test are mandatory. Automated test helps deliver the code to production with fewer bugs.
+
+REST API's
+	It is a popular and easiest way to build a functionality and expose it to outside world. In rest there have a cliet and a server which the client wants to access. Both of them exchange /interact with the data through internet. 
 	
+	Server is where our application is deployed. Server exposes some endpoints so that client can access them via internet. Client sends the HTTP Request and then server sends the http response in the form of XML or JSON..
+	
+	Typical RESTFul integration:
+	
+		So we have two services MoviesAPP (which is a client application) and Movies Restful service (managed by other company).
+		
+		Now Movies RESTFul service will expose some end points which will be accessed by the MoviesAPP via REST calls.
+		
+		Now in order to make sure the data is exchanging perfectly among the client and server app, we need to write automated test using JUnit. Now the problem is our MoviesAPP is trying to access data from outside application. So we cannot have automated test for a production like environment.
+		
+		Therefore the third party company will provide us a sandbox environment (prod like) for testing.
+		Through this we can perform junit testing.
+		
+		So what can be tested in sandbox env.
+			2xx and 4xx response code can be tested. but only these test cases are not sufficient for integration testing.
+			
+		What else we need to test for a successful integration
+			
+			1. 5xx response code (fault responses from server)
+			2. Latency from restful webservices.
+			3. Timeout testing from the client end.
+			
+		To achieve these tests wiremocks can be helpful for that.
+		
+		
+	Challanges in REST APi integration.
+	
+		1. There is a high chance that we need to build MoviesAPP and Movies client app parallely. And currently the request and response payload is finalized. Now in this case there is no sandbox env created.
+		
+			Now how will we test the code and write the code in MoviesAPP. Here again wiremock can be helpful.
+			
+		2. Challanges in JUnit testing:
+			1. Suppose we have test case written which depends on data coming from sandbox environment. If the data changes in sandbox environment, this will break the test case code.
+			
+			Wiremock has necessary tools in order to support such cases.
+			
+			2. Let us suppose we are building a service A which will interact with service B, C and D. Service B,C and D are also building in parallel. In such case how can we build automated test cases? With the help of wiremock service virtualization we can do that. So with this we can build rest client and test cases as if all the services are already built.
+			
+			
+	
+		Wiremock helps to simulate HTTP responses for a restful service which does not exist.
+		
+		Wiremock acts as a service virtualization tool.
+		
+		WireMock is used to provide static data for unit test.
+		
+		Wiremock is used to simulate fault HTTP responses
+		
+		Wiremock is used to simuate timeout
+		
+		Wiremock is used to simulate latency.
+	
+			
+		
+	Wiremock is a HTTP Api simulator or Http Mock web Server.
+	It acts as a web server which can receive requests and send response.
+	Its the responsibility of developer to configure HTTP request and response.
+	
+	A stub is a combination of HTTP Request and Http response. In wiremock we can configure N number of stubs.
+	
+	Wiremock can be run in 2 modes. Standalone and Embedded.
+	
+	Embedded: Wiremock will be run alongside the test cases in same JAVA PROCESS. Once the cases are executed then it will be shut down. Test cases will interact with embedded wiremock server through http.
+
+	
+	Standalone: In this wiremock runs as a separate process. Wiremock is deployed and process is running somewhere else and our service code will be going to interact with the wiremock throgh HTTP calls.
+	
+	If an application is not built in Java application and we need to mock the service then we should go for standalone mode.
+	
+	
+	WIREMOCK VS Mockito
+		
+		Wiremock provides simulated response to the actual service. But mockito also do the same thing.
+		
+		Wiremock is a webserver 			            Mockito is not a web server
+		Real HTTP nteraction with client application.	No HTTP scope.
+		Network fault simulation is possible			Network fault simulation is not possible.
+		Testing in wiremock = interacting with severs   provides the mock implementation of the method/object.
+		
+	Difference Between Webclient and RestTemplate
+	
+			Webclient is a part of spring web flux module			Rest Template is part of SpringWeb module.
+			
+			Webflux is a functional style API 						Spring web follows imparative style API.
+			
+			Can perform synchronous and async rest clients calls	Build only sync client calls.
+			
+	
+		Why Web client?
+		
+			Spring docs said that web clients are well performed for both sync and async rest client calls and in future REST Template will not be supported by the latest updates.
+			
+
+
+
+=====================================================================================================================
+
+	Wiremock is a programatic server through which can produce a perticular response for a given request. or we can stub the response.
+
+	WireMock is a library for stubbing and mocking web services. It constructs a HTTP server that we could connect to as we would to an actual web service.
+
+	When a WireMock server is in action, we can set up expectations, call the service, and then verify its behaviors.
+	
+
+	When a WireMock server is in action, we can set up expectations, call the service, and then verify its behaviors.
+
 	It constructs a HTTP server that we could connect to as we would to an actual web service.
 	It enables to stay productive when in case API is
 	

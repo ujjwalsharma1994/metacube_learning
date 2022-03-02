@@ -2,7 +2,7 @@ Jenkins
 	A CI/CD Tool
 	Free and Open source
 	Written in JAVA
-	
+
 	1.)
 	In continuous integration the dev team integrate their code to the central repository and later it is built.
 	
